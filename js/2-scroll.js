@@ -54,14 +54,20 @@ function ajax(options) {
 	httpReq.send();
 	
 }
+
+window.onscroll = function(ev) {
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+        ev = pobierzDane();
+    }
+	
+};
 	
 
 function pobierzDane(event) {
-	event.preventDefault();
 	
 	ajax({
 		type: "GET",
-		url: "http://echo.jsontest.com/Imie/Ania/Nazwisko/Kaludzinska/Miasto/Krakow",
+		url: "https://jsonplaceholder.typicode.com/users",
 		onError: function(msg) {
 			console.log(msg);
 		},
@@ -72,21 +78,25 @@ function pobierzDane(event) {
 			
 			console.log(jsonObj);
 			
-			var imie = document.createElement("p");
-			imie.innerHTML = "Imie: " + jsonObj.Imie;
-			document.body.appendChild(imie);
+			for (var i in jsonObj) {
+				
+				var objId = document.createElement("p");
+				objId.innerHTML = "Id: " + jsonObj[i].id;
+				document.body.appendChild(objId);
+				
+				var objName = document.createElement("p");
+				objName.innerHTML = "Name: " + jsonObj[i].name;
+				document.body.appendChild(objName);
+				
+				var objUsername = document.createElement("p");
+				objUsername.innerHTML = "Username: " + jsonObj[i].username;
+				document.body.appendChild(objUsername);
+				
+				var objEmail = document.createElement("p");
+				objEmail.innerHTML = "Email: " + jsonObj[i].email;
+				document.body.appendChild(objEmail);
+			}
 			
-			var nazwisko = document.createElement("p");
-			nazwisko.innerHTML = "Nazwisko: " + jsonObj.Nazwisko;
-			document.body.appendChild(nazwisko);
-			
-			var miasto = document.createElement("p");
-			miasto.innerHTML = "Miasto: " + jsonObj.Miasto;
-			document.body.appendChild(miasto);
-			
-			
-		},
+		}
 	});
 }
-	
-	
